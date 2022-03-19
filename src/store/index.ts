@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia';
+import type { Cell, Coord, Tile, Tilemap, TilemapEditorState } from './@types';
 
-export interface Tilemap {
-  width: number;
-  height: number;
-  cells: Record<`${number}|${number}`, Tile | null>; // `x|y`, 3|4
-}
 
 export const useTilemapStore = defineStore('tilemap', {
   state: (): Tilemap => {
@@ -45,17 +41,12 @@ export const useTilemapStore = defineStore('tilemap', {
     };
   },
   actions: {
-    update(coord: `${number}|${number}`, tile: Tile) {
+    update(coord: Coord, tile: Tile) {
       this.cells[coord] = tile;
     }
   }
 });
 
-export interface Tile {
-  sourceType: 'DATA_URL' | 'FS_URL';
-  sourcePath: string;
-  rawStringProperties: string;
-}
 
 export const useCurrentTileStore = defineStore('currentTile', {
   state: (): { current: Tile | null } => {
@@ -82,3 +73,4 @@ export const useTilesStore = defineStore('tiles', {
     }
   }
 });
+
